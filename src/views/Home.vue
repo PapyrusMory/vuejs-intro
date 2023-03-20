@@ -1,6 +1,7 @@
 <script>
 import DataTitle from '../components/DataTitle.vue'
 import DataBoxes from '../components/DataBoxes.vue'
+import axios from 'axios'
 
 import CountrySelect from '../components/CountrySelect.vue'
 
@@ -23,9 +24,14 @@ export default {
   },
   methods: {
     async fetchCovidData() {
-      const res = await fetch('https://api.covid19api.com/summary')
-      const data = await res.json()
-      return data
+      try {
+        const res = await axios.get('https://api.covid19api.com/summary')
+        console.log(res)
+        const data = await res.data
+        return data
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     getCountryData(country) {
